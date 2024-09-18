@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./iconx.png" type="image/png">
+    <title>Controle RTs Bases SAMU Paracambi</title>
+</head>
+<style>
+    *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    display: block;
+    font-family: Arial, sans-serif;
+    background: var(--color);
+    color: var(--ltr);
+    width:100% !important;
+    height:100% !important;
+}
+:root{
+    --color: #fff;
+    --ltr: #333;
+    --head: #333;
+    --shd:#000;
+}
+.lightI{
+    
+    --color: #333;
+    --ltr: #fff;
+    --head: #fff;
+    --shd:#cfcdcd9f;
+}
+header{
+    position:fixed;
+    top:0;
+    left: 0;
+    right: 0;
+    padding: 8px 120px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1;
+    background-color: var(--head);
+    box-shadow: 0 5px 9px var(--shd);
+}
+header a{
+    text-decoration: none;
+    color: var(--color);
+    font-size: 40px;
+}
+header a:hover{
+    background: var(--color);
+    color: var(--ltr);
+    width: auto;
+}
+.btnzin{
+    border-radius: 10%;
+    background: yellow;
+    color:blue;
+}
+.btnzin:hover{
+    background: red;
+    color:yellow; 
+}
+.content{
+    display: none;
+    margin: 95px;
+}
+.content.active {
+    display: block;
+}
+table{
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+th, td{
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+th{
+    background-color: #f2f2f2;
+    color: #333;
+}
+img{
+    flex-wrap: wrap;
+}
+.controls{
+    margin-bottom: 20px;
+}
+.controls input {
+    margin-right: 10px;
+}
+.controls button {
+margin-right: 10px;
+}
+
+#chat-container-paracambi {
+    width: 80%;
+    margin-top: 40px;
+}
+</style>
+<body>
+    <header id="main-header">
+        <img src="/iconx.png" id="logox" width="150px">
+        <a href="./paracBase.html">BASE SAMU PARACAMBI</a>
+        <a href=""></a>
+        <button style="width: 40px; height: 40px; font-size: 30px;border: none; background: none;" onclick="toggleModelI()">💡</button>
+    </header>
+    <aside>
+        
+    </aside>
+    <main>
+        <div id="contentparacambirt" class="content active">
+            <p style="text-align: center;"><img src="/Samu-logo.png" style="width: 120px;" alt=""></p>
+            <h1 style="text-align: center;">Acompanhamento de presenças base SAMU Paracambi</h1><br>
+            <h2 style="text-align: center; text-decoration: underline">Controle de presenças</h2><br><br>
+            <p>Obs: Para estar apto a receber o certificado de conclusão, o colaborador deve obter o mínimo de <b>70%(setenta porcento)</b> da presença nos treinamentos.</p>
+    <table id="tabela-presenca-paracambirt">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Gênero</th>
+                <th>Cargo</th>
+                <th>Presença</th>
+                <th>Faltas</th>
+                <th>Presença %</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Presentes adicionados aqui -->
+        </tbody>
+    </table>
+    <div id="chart-container-paracambirt">
+        <canvas id="presenca-chart-paracambirt"></canvas>
+    </div>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+<script>
+// Carrega os dados do localStorage
+let participantesParacambiRt = JSON.parse(localStorage.getItem('participantesParacambi')) || [];
+
+function atualizarTabelaParacambiRt() {
+    const totalAulas = 9; // Total de aulas
+    const tabela = document.getElementById('tabela-presenca-paracambirt').getElementsByTagName('tbody')[0];
+    tabela.innerHTML = '';
+    
+
+    participantesParacambiRt.forEach((participante, index) => {
+        const row = tabela.insertRow();
+
+        const porcentagemPresenca = ((participante.presenca / totalAulas) * 100).toFixed(0) + '%';
+
+        row.insertCell(0).innerHTML = participante.nome;
+        row.insertCell(1).innerHTML = participante.genero;
+        row.insertCell(2).innerHTML = participante.cargo;
+        row.insertCell(3).innerHTML = participante.presenca;
+        row.insertCell(4).innerHTML = participante.faltas;
+        row.insertCell(5).innerHTML = porcentagemPresenca;
+    });
+}
+
+// Atualiza a tabela na página de Paracambi
+atualizarTabelaParacambiRt();
+//            //            // 
+
+function gerarGraficoParacambi() {
+    const ctx = document.getElementById('presenca-chart-paracambirt').getContext('2d');
+    const labels = participantesParacambiRt.map(p => p.nome);
+    const presencas = participantesParacambiRt.map(p => p.presenca);
+    const faltas = participantesParacambiRt.map(p => p.faltas);
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels,
+            datasets: [
+                {
+                    label: 'Total de aulas: 9',
+                    data: labels
+                },
+                {
+                    label: 'Presenças',
+                    backgroundColor: 'green',
+                    data: presencas
+                },
+                {
+                    label: 'Faltas',
+                    backgroundColor: 'red',
+                    data: faltas
+                }
+            ]
+        },
+        options: {
+            scales: {
+                x: {
+                    stacked: true
+                },
+                y: {
+                    beginAtZero: true,
+                   max: 9,
+                    stacked: true,
+                    ticks: {
+                        precision: 0,
+                        callback: function(value) {
+                            return value// + '%';
+                        }
+                    }
+                }
+            },
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return context.dataset.label + ': ' + context.raw//.toFixed(1)// + '%';
+                        }
+                    }
+                },
+                datalabels: {
+                    color: 'white',
+                    anchor: 'center',
+                    align: 'center',
+                    formatter: (value) => {
+                        return value//.toFixed(1) + '%';
+                    }
+                }
+            }
+        },
+        plugins: [ChartDataLabels]
+    });
+}
+window.addEventListener('load', () => {
+    atualizarTabelaParacambiRt();
+    gerarGraficoParacambi();
+});
+        function toggleModelI(){
+            const html = document.documentElement
+            //mudar tema entre claro e escuro
+            html.classList.toggle("lightI"); const modelI = html.classList.contains("lightI") ? "lightI" : "darku";
+                  localStorage.setItem("modelI", modelI);
+          }
+          // Verificar o modo salvo no carregamento da página
+          window.onload = function() {
+                  const modelI = localStorage.getItem('modelI');
+                  if (modelI === 'lightI') {
+                      toggleModelI();
+                  }
+              };
+
+
+</script>
+</body>
+</html>
