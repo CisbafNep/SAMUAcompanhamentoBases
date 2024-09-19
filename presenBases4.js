@@ -204,6 +204,16 @@ document.getElementById("menu-toggle").addEventListener("click", function() {
     sidebar.classList.toggle("active");
 });
 
+const sidebar = document.getElementById("sidebar");
+const menuToggle = document.getElementById("menu-toggle");
+
+// Fechar o menu lateral ao clicar em qualquer lugar fora dele
+document.addEventListener("click", function(event) {
+    if (!sidebar.contains(event.target) && !menuToggle.contains(event.target)) {
+        sidebar.classList.remove("active");
+    }
+});
+
   // Verificar o modo salvo no carregamento da página
   window.onload = function() {
           const mode = localStorage.getItem('mode');
