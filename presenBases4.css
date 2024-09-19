@@ -158,8 +158,12 @@ margin-right: 10px;
         gap: 5px;
     }
 
-    #menu-toggle {
+     #menu-toggle {
         display: block;
+        color: var(--color);
+    }
+    details{
+        padding: 18px;
     }
     .sidebar {
         width: 0;
