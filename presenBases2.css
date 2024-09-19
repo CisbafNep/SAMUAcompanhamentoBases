@@ -1,0 +1,178 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    display: block;
+    font-family: Arial, sans-serif;
+    background: var(--color);
+    color: var(--ltr);
+    width:100% !important;
+    height:100% !important;
+}
+:root{
+    --color: #fff;
+    --ltr: #333;
+    --head: #333;
+    --shd:#000;
+}
+.light{
+    
+    --color: #333;
+    --ltr: #fff;
+    --head: #fff;
+    --shd:#cfcdcd9f;
+}
+header{
+    position:fixed;
+    top:0;
+    left: 0;
+    right: 0;
+    padding: 8px 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1;
+    background-color: var(--head);
+    box-shadow: 0 5px 9px var(--shd);
+}
+header a{
+    text-decoration: none;
+    color: var(--color);
+}
+header a:hover{
+    background: var(--color);
+    color: var(--ltr);
+    width: auto;
+}
+.btnzin{
+    border-radius: 6px;
+    background: yellow;
+    color:blue;
+}
+.btnzin:hover{
+    background: red;
+    color:yellow; 
+}
+.content{
+    display: none;
+    margin: 95px;
+}
+.content.active {
+    display: block;
+}
+input, select, button {
+    padding: 6px;
+}
+table{
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+th, td{
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+th{
+    background-color: #f2f2f2;
+    color: #333;
+}
+img{
+    flex-wrap: wrap;
+}
+.controls{
+    margin-bottom: 20px;
+}
+.controls input {
+    margin-right: 10px;
+}
+.controls button {
+margin-right: 10px;
+}
+
+#chat-container-nilopolis {
+    width: 80%;
+    margin-top: 40px;
+}
+.sidebar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: var(--head);
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.sidebar a {
+    padding: 10px 15px;
+    text-decoration: none;
+    font-size: 22px;
+    color: var(--color);
+    display: block;
+    transition: 0.3s;
+}
+
+.sidebar a:hover {
+    background: var(--color);
+    color: var(--ltr);
+}
+
+#menu-toggle {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    
+    header {
+        flex-direction: row;
+        padding: 8px 160px;
+    }
+    header a {
+        display: none;
+    }
+    header img {
+        width: 80px;
+    }
+    table th, table td {
+        font-size: 12px;
+        padding: 6px;
+    }
+    #chart-container-nilopolis {
+        width: 100%;
+        height: auto;
+    }
+
+    .content {
+        margin: 10px;
+    }
+    #controls{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    #menu-toggle {
+        display: block;
+    }
+    .sidebar {
+        width: 0;
+    }
+
+    .sidebar.active {
+        width: 250px;
+    }
+    #lampx{
+        display: none;
+    }
+}
+
+

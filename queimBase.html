@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./iconx.png" type="image/png">
+    <link rel="stylesheet" href="presenBases4.css">
+    <title>Controle presença Bases SAMU</title>
+</head>
+<body>
+<header>
+    <img src="/iconx.png" id="logox" width="150px">
+    <button id="menu-toggle" style="width: 40px; height: 40px; font-size: 25px; background: none; border: none;">☰</button>
+    <a href="/index.html">VOLTAR AO MENU</a>
+    <a href="nilopBase.html">NILÓPOLIS</a>
+    <a href="/paracBase.html">PARACAMBI</a>
+    <a href="#">QUEIMADOS</a>
+    <button style="width: 40px; height: 40px; font-size: 25px;border: none; background: none;" onclick="toggleMode()" id="lampa">💡</button>
+</header><br>
+<nav id="sidebar" class="sidebar">
+    <a href="/index.html">VOLTAR AO MENU</a>
+    <a href="nilopBase.html">NILÓPOLIS</a>
+    <a href="/paracBase.html">PARACAMBI</a>
+    <a href="#">QUEIMADOS</a>
+    <button style="width: 40px; height: 40px; font-size: 25px;border: none; background: none;" onclick="toggleMode()">💡</button>
+</nav>
+
+<main>
+    <div id="contentQueimados" class="content active">
+        <details style="text-align: right;">
+            <summary><h3 >Legendas: (clique para abrir)</h3></summary>
+            <div style="text-align: right;">
+                <p><span style="color: green; font: bold;">Presença</span>: Adiciona presença do colaborador na tabela.</p>
+                <p><span style="color: red">Falta</span>: Adiciona falta do colaborador na tabela.</p>
+                <p><span style="text-decoration: underline;">Limpar</span>: Limpa status do colaborador na tabela.</p>
+                <p><span style="text-decoration: underline">Remover</span>: Remove o colaborador na tabela.</p>
+                <p><span style="color: orange">Ação</span>: Executa a opção escolhida na caixa(limpar ou remover).</p>
+            </div>
+        </details>
+        <p style="text-align: center;"><img src="/Samu-logo.png" style="width: 120px;" alt=""></p>
+        <h1 style="text-align: center;">Acompanhamento de presenças base SAMU Queimados</h1><br>
+        <h2 style="text-align: center; text-decoration: underline">Controle de presenças</h2><br><br>
+        <div id="controls" class="controls">
+            <label>Colaborador:</label>
+            <input type="text" id="nomeQueimados" placeholder="Digite o nome...">
+            <label>Gênero:</label>
+            <select id="generoQueimados">
+                <option value="Masculino">Masculino</option>
+                <option value="Feminino">Feminino</option>
+                <option value="Outro">Outro</option>
+            </select>
+            <label>Cargo:</label>
+            <select id="cargoQueimados">
+                <option value="Médico(a)">Médico(a)</option>
+                <option value="Enfermeiro(a)">Enfermeiro(a)</option>
+                <option value="Condutor">Condutor</option>
+                <option value="Téc. Enfermagem">Téc. Enfermagem</option>
+            </select>
+            <button class="btnzin" onclick="adicionarParticipanteQueimados()">Adicionar participante</button>
+            <button class="btnzin" onclick="gerarGraficoQueimados()">Gerar Gráfico</button>
+        </div><br>
+        <table id="tabela-presenca-queimados">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Gênero</th>
+                    <th>Cargo</th>
+                    <th>Presença</th>
+                    <th>Faltas</th>
+                    <th>Presença %</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!--presentes add aqui-->
+            </tbody>
+    
+        </table><br>
+        <div id="chart-container-queimados">
+            <canvas id="presenca-chart-queimados"></canvas>
+        </div>
+    </div>
+    <div>
+        <button style="width: 150px; background: rgb(5, 124, 124);"><a href="/RtsQueimados.html" style="text-decoration: none; color: #fff;">Checar relatórios RTs</a></button>
+    </div>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+<script src="presenBases4.js"></script>
+</body>
+</html>
