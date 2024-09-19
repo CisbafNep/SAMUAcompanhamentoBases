@@ -103,6 +103,50 @@ margin-right: 10px;
     width: 80%;
     margin-top: 40px;
 }
+/* Responsividade para tablets e celulares */
+@media (max-width: 768px) {
+            header {
+                flex-direction: row;
+                padding: 8px 20px;
+            }
+            header a {
+                font-size: 20px;
+            }
+            header img {
+                width: 80px;
+            }
+            .content {
+                margin: 80px 5px;
+            }
+            table th, table td {
+                font-size: 12px;
+                padding: 6px;
+            }
+            #chart-container-paracambi {
+                width: 100%;
+                height: auto;
+            }
+        }
+        @media (max-width: 480px) {
+            header a {
+                font-size: 16px;
+            }
+            header img {
+                width: 60px;
+            }
+            table th, table td {
+                font-size: 10px;
+                padding: 4px;
+            }
+            .content {
+                margin: 80px 2px;
+            }
+            #chart-container-paracambi {
+                width: 100%;
+                height: auto;
+            }
+        }
+
 </style>
 <body>
     <header id="main-header">

@@ -103,19 +103,61 @@ margin-right: 10px;
     width: 80%;
     margin-top: 40px;
 }
+/* Responsividade para tablets e celulares */
+@media (max-width: 768px) {
+            header {
+                flex-direction: row;
+                padding: 8px 20px;
+            }
+            header a {
+                font-size: 20px;
+            }
+            header img {
+                width: 80px;
+            }
+            .content {
+                margin: 80px 5px;
+            }
+            table th, table td {
+                font-size: 12px;
+                padding: 6px;
+            }
+            #chart-container-nilopolis {
+                width: 100%;
+                height: auto;
+            }
+        }
+        @media (max-width: 480px) {
+            header a {
+                font-size: 16px;
+            }
+            header img {
+                width: 60px;
+            }
+            table th, table td {
+                font-size: 10px;
+                padding: 4px;
+            }
+            .content {
+                margin: 80px 2px;
+            }
+            #chart-container-nilopolis {
+                width: 100%;
+                height: auto;
+            }
+        }
 </style>
 <body>
     <header id="main-header">
         <img src="/iconx.png" id="logox" width="150px">
         <a href="/nilopBase.html">BASE SAMU NILÓPOLIS</a>
-        <a href=""></a>
         <button style="width: 40px; height: 40px; font-size: 30px;border: none; background: none;" onclick="toggleModelu()">💡</button>
     </header>
     <aside>
         
     </aside>
     <main>
-        <div id="contentnilopolisrt" class="content active">
+        <div id="contentnilopolisrt" class="content active"><br><br><br>
             <p style="text-align: center;"><img src="/Samu-logo.png" style="width: 120px;" alt=""></p>
             <h1 style="text-align: center;">Acompanhamento de presenças base SAMU Nilópolis</h1>
             <h2 style="text-align: center; text-decoration: underline">Controle de presenças</h2><br><br>
