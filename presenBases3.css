@@ -98,9 +98,62 @@ margin-right: 10px;
     width: 100%;
     margin-top: 40px;
 }
-@media (max-width: 800px){
+.sidebar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: var(--head);
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.sidebar a {
+    padding: 10px 15px;
+    text-decoration: none;
+    font-size: 22px;
+    color: var(--color);
+    display: block;
+    transition: 0.3s;
+}
+
+.sidebar a:hover {
+    background: var(--color);
+    color: var(--ltr);
+}
+
+#menu-toggle {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    
+    header {
+        flex-direction: row;
+        padding: 8px 160px;
+    }
+    header a {
+        display: none;
+    }
+    header img {
+        width: 80px;
+    }
+    table th, table td {
+        font-size: 12px;
+        padding: 6px;
+    }
+    #chart-container-paracambi {
+        width: 100%;
+        height: auto;
+    }
+
     .content {
-        margin: 20px;
+        margin: 10px;
     }
     #controls{
         width: 100%;
@@ -108,4 +161,19 @@ margin-right: 10px;
         flex-direction: column;
         gap: 5px;
     }
+
+    #menu-toggle {
+        display: block;
+    }
+    .sidebar {
+        width: 0;
+    }
+
+    .sidebar.active {
+        width: 250px;
+    }
+    #lampd{
+        display: none;
+    }
 }
+

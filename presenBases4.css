@@ -128,21 +128,16 @@ margin-right: 10px;
 }
 
 @media (max-width: 768px) {
-   
-}
-@media (max-width: 768px) {
+    
     header {
         flex-direction: row;
-        padding: 8px 150px;
+        padding: 8px 160px;
     }
     header a {
         display: none;
     }
     header img {
         width: 80px;
-    }
-    .content {
-        margin: 80px 5px;
     }
     table th, table td {
         font-size: 12px;
@@ -154,7 +149,7 @@ margin-right: 10px;
     }
 
     .content {
-        margin: 20px;
+        margin: 10px;
     }
     #controls{
         width: 100%;
