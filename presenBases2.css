@@ -162,6 +162,10 @@ margin-right: 10px;
 
     #menu-toggle {
         display: block;
+        color: var(--color);
+    }
+    details{
+        padding: 18px;
     }
     .sidebar {
         width: 0;
@@ -173,6 +177,7 @@ margin-right: 10px;
     #lampx{
         display: none;
     }
+    
 }
 
 
