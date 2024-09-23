@@ -6,13 +6,13 @@ function salvarDadosParacambi() {
 
 function adicionarParticipanteParacambi() {
     const nome = document.getElementById('nomeParacambi').value;
-    const genero = document.getElementById('generoParacambi').value;
+    //const genero = document.getElementById('generoParacambi').value;
     const cargo = document.getElementById('cargoParacambi').value;
 
     if (nome && cargo) {
         const participante = {
             nome,
-            genero,
+            //genero,
             cargo,
             presenca: 0,
             faltas: 0
@@ -67,12 +67,12 @@ function atualizarTabelaParacambi() {
 
         const porcentagemPresenca = ((participante.presenca / totalAulas) * 100).toFixed(0) + '%';
 
-        row.insertCell(0).innerHTML = participante.nome;
-        row.insertCell(1).innerHTML = participante.genero;
-        row.insertCell(2).innerHTML = participante.cargo;
-        row.insertCell(3).innerHTML = participante.presenca;
-        row.insertCell(4).innerHTML = participante.faltas;
-        row.insertCell(5).innerHTML = porcentagemPresenca; // Nova coluna para porcentagem de presença
+       row.insertCell(0).innerHTML = participante.nome;
+        row.insertCell(1).innerHTML = participante.cargo;
+        row.insertCell(2).innerHTML = participante.presenca;
+        row.insertCell(3).innerHTML = participante.faltas;
+        row.insertCell(4).innerHTML = porcentagemPresenca; // Nova coluna para porcentagem de presença
+        //row.insertCell(1).innerHTML = participante.genero;
 
         const actionsCell = row.insertCell(6);
         actionsCell.innerHTML = `
