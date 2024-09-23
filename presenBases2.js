@@ -74,7 +74,7 @@ function atualizarTabelaNilopolis() {
         row.insertCell(4).innerHTML = porcentagemPresenca; // Nova coluna para porcentagem de presença
         //row.insertCell(1).innerHTML = participante.genero;
 
-        const actionsCell = row.insertCell(6);
+        const actionsCell = row.insertCell(5);
         actionsCell.innerHTML = `
         <button onclick="marcarPresencaNilopolis(${index})" style="background: green;">Presença</button>
         <button onclick="marcarFaltaNilopolis(${index})" style="background: red; color: #fff;">Falta</button>
