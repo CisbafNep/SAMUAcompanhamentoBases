@@ -166,7 +166,7 @@ margin-right: 10px;
         <thead>
             <tr>
                 <th>Nome</th>
-                <th>Gênero</th>
+                <!--<th>Gênero</th>-->
                 <th>Cargo</th>
                 <th>Presença</th>
                 <th>Faltas</th>
@@ -199,11 +199,11 @@ function atualizarTabelaNilopolisRt() {
         const porcentagemPresenca = ((participante.presenca / totalAulas) * 100).toFixed(0) + '%';
 
         row.insertCell(0).innerHTML = participante.nome;
-        row.insertCell(1).innerHTML = participante.genero;
-        row.insertCell(2).innerHTML = participante.cargo;
-        row.insertCell(3).innerHTML = participante.presenca;
-        row.insertCell(4).innerHTML = participante.faltas;
-        row.insertCell(5).innerHTML = porcentagemPresenca;
+        row.insertCell(1).innerHTML = participante.cargo;
+        row.insertCell(2).innerHTML = participante.presenca;
+        row.insertCell(3).innerHTML = participante.faltas;
+        row.insertCell(4).innerHTML = porcentagemPresenca; // Nova coluna para porcentagem de presença
+        //row.insertCell(1).innerHTML = participante.genero;
     });
 }
 
