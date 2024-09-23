@@ -12,7 +12,7 @@ function adicionarParticipanteNilopolis() {
     if (nome && cargo) {
         const participante = {
             nome,
-            genero,
+            //genero,
             cargo,
             presenca: 0,
             faltas: 0
