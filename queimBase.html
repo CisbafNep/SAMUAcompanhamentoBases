@@ -43,6 +43,12 @@
         <div id="controls" class="controls">
             <label>Colaborador:</label>
             <input type="text" id="nomeQueimados" placeholder="Digite o nome...">
+             <!--<label>Gênero:</label>
+            <select id="generoQueimados">
+                <option value="Masculino">Masculino</option>
+                <option value="Feminino">Feminino</option>
+                <option value="Outro">Outro</option>
+            </select>-->
             <label>Cargo:</label>
             <select id="cargoQueimados">
                 <option value="Médico(a)">Médico(a)</option>
@@ -57,6 +63,7 @@
             <thead>
                 <tr>
                     <th>Nome</th>
+                    <!--<th>Gênero</th>-->
                     <th>Cargo</th>
                     <th>Presença</th>
                     <th>Faltas</th>
@@ -67,6 +74,7 @@
             <tbody>
                 <!--presentes add aqui-->
             </tbody>
+    
         </table><br>
         <div id="chart-container-queimados">
             <canvas id="presenca-chart-queimados"></canvas>
@@ -79,182 +87,5 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
 <script src="presenBases4.js"></script>
-
-<!-- Adicionando a biblioteca do QR Code -->
-<script src="html5-qrcode.min.js"></script>
-
-<script>
-    let participantesQueimados = JSON.parse(localStorage.getItem('participantesQueimados')) || [];
-    let codigoQRCodeLido = '';
-
-    function salvarDadosQueimados() {
-        localStorage.setItem('participantesQueimados', JSON.stringify(participantesQueimados));
-    }
-
-    function adicionarParticipanteQueimados() {
-        const nome = document.getElementById('nomeQueimados').value;
-        const cargo = document.getElementById('cargoQueimados').value;
-
-        if (nome && cargo) {
-            const participante = {
-                nome,
-                cargo,
-                presenca: 0,
-                faltas: 0
-            };
-
-            participantesQueimados.push(participante);
-            atualizarTabelaQueimados();
-            salvarDadosQueimados();
-            limparcamposQueimados();
-        } else {
-            alert('Por favor, preencha todos os campos!')
-        }
-    }
-
-    function limparcamposQueimados() {
-        document.getElementById('nomeQueimados').value = '';
-        document.getElementById('cargoQueimados').value = '';
-    }
-
-    function marcarPresencaQueimados(index) {
-        participantesQueimados[index].presenca += 1;
-        atualizarTabelaQueimados();
-        salvarDadosQueimados();
-    }
-
-    function marcarFaltaQueimados(index) {
-        participantesQueimados[index].faltas += 1;
-        atualizarTabelaQueimados();
-        salvarDadosQueimados();
-    }
-
-    function limparPresencaFaltaQueimados(index) {
-        participantesQueimados[index].presenca = 0;
-        participantesQueimados[index].faltas = 0;
-        atualizarTabelaQueimados();
-        salvarDadosQueimados();
-    }
-
-    function removerParticipanteQueimados(index) {
-        participantesQueimados.splice(index, 1);
-        atualizarTabelaQueimados();
-        salvarDadosQueimados();
-    }
-
-    function atualizarTabelaQueimados() {
-        const totalAulas = 9; // Total de aulas
-        const tabela = document.getElementById('tabela-presenca-queimados').getElementsByTagName('tbody')[0];
-        tabela.innerHTML = '';
-
-        participantesQueimados.forEach((participante, index) => {
-            const row = tabela.insertRow();
-
-            const porcentagemPresenca = ((participante.presenca / totalAulas) * 100).toFixed(0) + '%';
-
-            row.insertCell(0).innerHTML = participante.nome;
-            row.insertCell(1).innerHTML = participante.cargo;
-            row.insertCell(2).innerHTML = participante.presenca;
-            row.insertCell(3).innerHTML = participante.faltas;
-            row.insertCell(4).innerHTML = porcentagemPresenca; // Nova coluna para porcentagem de presença
-
-            const actionsCell = row.insertCell(5);
-            actionsCell.innerHTML = `
-                <button onclick="marcarPresencaQueimados(${index})" style="background: green;">Presença</button>
-                <button onclick="marcarFaltaQueimados(${index})" style="background: red; color: #fff;">Falta</button>
-                
-                <select id="acaoSelect${index}">
-                    <option value="#">Escolha...</option>
-                    <option value="limparPresencaFaltaQueimados">Limpar</option>
-                    <option value="removerParticipanteQueimados">Remover</option>
-                </select>
-                <button onclick="executarAcao(${index})" style="background: orange; color: #333;">Ação</button>
-            `;
-        });
-
-        atualizarGraficoQueimados();
-    }
-
-    function executarAcao(index) {
-        const select = document.getElementById(`acaoSelect${index}`);
-        const acao = select.value;
-
-        if (acao === 'limparPresencaFaltaQueimados') {
-            limparPresencaFaltaQueimados(index);
-        } else if (acao === 'removerParticipanteQueimados') {
-            removerParticipanteQueimados(index);
-        }
-    }
-
-    function atualizarGraficoQueimados() {
-        const ctx = document.getElementById('presenca-chart-queimados').getContext('2d');
-        const presencas = participantesQueimados.map(participante => participante.presenca);
-        const nomes = participantesQueimados.map(participante => participante.nome);
-
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: nomes,
-                datasets: [{
-                    label: 'Presença',
-                    data: presencas,
-                    backgroundColor: 'rgba(75, 192, 192, 0.6)',
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    borderWidth: 1,
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-    }
-
-    // Funções do QR Code
-    function onScanSuccess(decodedText) {
-        codigoQRCodeLido = decodedText; // Armazena o código lido
-        alert(`QR Code lido: ${codigoQRCodeLido}`);
-        adicionarPresenca(); // Adiciona presença assim que o QR Code for lido
-    }
-
-    function onScanError(errorMessage) {
-        // Lógica de erro, se necessário
-    }
-
-    function iniciarLeituraQRCode() {
-        const html5QrCode = new Html5Qrcode("reader");
-        html5QrCode.start(
-            { facingMode: "environment" }, 
-            {
-                fps: 10,
-                qrbox: { width: 250, height: 250 }
-            },
-            onScanSuccess,
-            onScanError
-        ).catch(err => {
-            console.error(`Erro ao iniciar a leitura do QR Code: ${err}`);
-        });
-    }
-
-    function adicionarPresenca() {
-        const participanteIndex = participantesQueimados.findIndex(participante => participante.nome === codigoQRCodeLido);
-
-        if (participanteIndex !== -1) {
-            marcarPresencaQueimados(participanteIndex);
-            alert(`Presença registrada para: ${codigoQRCodeLido}`);
-        } else {
-            alert(`Colaborador não encontrado: ${codigoQRCodeLido}`);
-        }
-    }
-
-    // Inicia a leitura do QR Code quando a página é carregada
-    window.onload = function () {
-        iniciarLeituraQRCode();
-    };
-
-</script>
 </body>
 </html>
